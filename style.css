@@ -1,0 +1,241 @@
+/* Custom CSS for theme variables and smooth transitions */
+:root {
+    --bg-color-light: #f8f9fa; /* Light background */
+    --text-color-light: #212529; /* Dark text */
+    --primary-color-light: #007bff; /* Blue accent */
+    --header-bg-light: #ffffff; /* White header */
+    --border-color-light: #dee2e6; /* Light border */
+    --card-bg-light: #ffffff; /* Card background light */
+    --card-shadow-light: rgba(0, 0, 0, 0.1); /* Card shadow light */
+}
+
+.dark-theme {
+    --bg-color-dark: #1a202c; /* Dark background */
+    --text-color-dark: #e2e8f0; /* Light text */
+    --primary-color-dark: #667eea; /* Purple accent */
+    --header-bg-dark: #2d3748; /* Darker header */
+    --border-color-dark: #4a5568; /* Dark border */
+    --card-bg-dark: #2d3748; /* Card background dark */
+    --card-shadow-dark: rgba(0, 0, 0, 0.3); /* Card shadow dark */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    /* Smooth transitions for theme change */
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body.dark-theme {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+header {
+    background-color: var(--header-bg-light);
+    border-bottom: 1px solid var(--border-color-light);
+    transition: background-color 0.5s ease-in-out, border-color 0.5s ease-in-out;
+    position: relative; /* For absolute positioning of mobile menu */
+    z-index: 100; /* Ensure header is on top */
+}
+
+body.dark-theme header {
+    background-color: var(--header-bg-dark);
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+/* Primary button styling */
+.btn-primary {
+    background-color: var(--primary-color-light);
+    transition: background-color 0.5s ease-in-out;
+}
+
+body.dark-theme .btn-primary {
+    background-color: var(--primary-color-dark);
+}
+
+/* Border color based on theme */
+.border-theme-color {
+    border-color: var(--border-color-light);
+    transition: border-color 0.5s ease-in-out;
+}
+
+body.dark-theme .border-theme-color {
+    border-color: var(--border-color-dark);
+}
+
+/* Project, Product, Testimonial card styling with theme-aware background and shadow */
+.project-card, .product-card, .testimonial-card {
+    background-color: var(--card-bg-light);
+    box-shadow: 0 4px 6px var(--card-shadow-light);
+    transition: background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+body.dark-theme .project-card, body.dark-theme .product-card, body.dark-theme .testimonial-card {
+    background-color: var(--card-bg-dark);
+    box-shadow: 0 4px 6px var(--card-shadow-dark);
+}
+
+/* Hamburger menu icon styling */
+.hamburger-icon {
+    display: flex; /* Show by default on small screens */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 28px; /* Slightly smaller width */
+    height: 22px; /* Slightly smaller height */
+    cursor: pointer;
+    z-index: 101; /* Above other header elements */
+}
+
+.hamburger-icon span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-color-light); /* Line color */
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+body.dark-theme .hamburger-icon span {
+    background-color: var(--text-color-dark);
+}
+
+/* Hamburger menu animation for close icon */
+.hamburger-icon.open span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg); /* Adjusted translateY */
+}
+
+.hamburger-icon.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-icon.open span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg); /* Adjusted translateY */
+}
+
+/* Mobile menu overlay styling (the "small box") */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200; /* Higher z-index to cover everything */
+    opacity: 0;
+    pointer-events: none; /* Disable interaction when hidden */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.mobile-menu-overlay.open {
+    opacity: 1;
+    pointer-events: auto; /* Enable interaction when open */
+}
+
+.mobile-menu-content {
+    background-color: var(--header-bg-light); /* Use header background for consistency */
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    width: 90%; /* Responsive width */
+    max-width: 300px; /* Max width for the "small box" */
+    transform: translateY(-20px) scale(0.95); /* Initial animation state */
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+body.dark-theme .mobile-menu-content {
+    background-color: var(--header-bg-dark);
+}
+
+.mobile-menu-overlay.open .mobile-menu-content {
+    transform: translateY(0) scale(1); /* Final animation state */
+    opacity: 1;
+}
+
+.mobile-menu-content nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Spacing between menu items */
+}
+
+.mobile-menu-content nav a {
+    font-size: 1.2rem;
+    color: var(--text-color-light);
+    text-decoration: none;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color-light);
+    transition: color 0.3s, background-color 0.3s;
+}
+
+body.dark-theme .mobile-menu-content nav a {
+    color: var(--text-color-dark);
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+.mobile-menu-content nav a:last-child {
+    border-bottom: none;
+}
+
+.mobile-menu-content nav a:hover {
+    color: var(--primary-color-light);
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-theme .mobile-menu-content nav a:hover {
+    color: var(--primary-color-dark);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Desktop navigation - hidden on small screens, shown on medium and up */
+.desktop-nav {
+    display: none;
+}
+
+@media (min-width: 768px) { /* Medium screens and up */
+    .hamburger-icon {
+        display: none; /* Hide hamburger on desktop */
+    }
+    .desktop-nav {
+        display: flex; /* Show desktop nav */
+    }
+    .mobile-menu-overlay {
+        display: none; /* Hide mobile menu overlay on desktop */
+    }
+    header {
+        flex-direction: row; /* Align items horizontally */
+    }
+}
+
+/* Theme Toggle Button Size Adjustment */
+#theme-toggle-btn {
+    padding: 8px 16px; /* Reduced padding */
+    font-size: 0.9rem; /* Smaller font size */
+}
+
+/* Scroll-reveal animation styles */
+.scroll-reveal-section {
+    opacity: 0;
+    transform: translateX(-50px); /* Initial position off-screen to the left */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Smooth animation */
+}
+
+.scroll-reveal-section.active {
+    opacity: 1;
+    transform: translateX(0); /* Final position */
+}
+
+/* For testimonials, animate from the right for variety */
+#testimonials.scroll-reveal-section {
+    transform: translateX(50px); /* Initial position off-screen to the right */
+}
+#testimonials.scroll-reveal-section.active {
+    transform: translateX(0); /* Final position */
+}
